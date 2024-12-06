@@ -10,23 +10,24 @@
     <div class="main">
         <div class="container">
             <div class="header">
-                <div class="logo"><p >D</p><img src="../assets/pngwing.com (3).png" alt=""><p class="d"> nors</p></div>
+                <div class="logo"><p >D</p><img src="../assets/logo.png" alt=""><p class="d"> nors</p></div>
                 <div class="adddonor-div"><a href="../index.html"><button class="adddonors">Home</button></a></div>
         </div>
         <div class="box">
+            <form action="/submit" method="post">
             <div class="heading"><h1>Registration Form</h1></div>
             <div class="details">
                 <div class="name-div">
                     <div class="name"><h4>Name</h4></div>
                     <div class="name-input" >
-                        <input class="text" type="text" id="name" >
+                        <input class="text" type="text" id="name"  name="name" required>
                         <span id="nam"></span>
                     </div>
                 </div>
                 <div class="name-div">
                     <div class="name"><h4>Address</h4></div>
                     <div class="name-input">
-                        <input class="text" type="text" id="address">
+                        <input class="text" type="text" id="address" name="address">
                         <span id="place"></span>
                     </div>
                 </div>
@@ -35,15 +36,17 @@
                     <div class="name"><h4>Gender</h4></div>
                     <div class="name-input">
                         Male<input type="radio" name="gender">
-                         Female<input type="radio" name="gender"><br>
+                         Female<input type="radio" name="gender" >
+                         Others<input type="radio" name="gender" ><br>
                          <span>*invalid</span>
                     </div>
                 </div>
                 <div class="name-div">
                     <div class="name"><h4>Group</h4></div>
                     <div class="name-input">
-                        <select name="" id="">
-                            <option value="">A+</option>
+                        <select name="group" id="">
+                            <option value="
+                            ">A+</option>
                             <option value="">A-</option>
                             <option value="">B+</option>
                             <option value="">B-</option>
@@ -59,7 +62,7 @@
                 <div class="name-div">
                     <div class="name"><h4>Phone</h4></div>
                     <div class="name-input">
-                        <input class="text" type="" >
+                        <input class="text" type="" name="phone">
                         <span>*invalid</span>
                     </div>
                 </div>
@@ -68,6 +71,7 @@
                 </div>
 
             </div>
+        </form>
             
         </div>
 
