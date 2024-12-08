@@ -4,10 +4,11 @@ const url=require("url")
 const PORT=3001
 const path=require("path")
 const queryString=require("querystring")
-const {MongoClient}=require("mongodb")
+const {MongoClient, ObjectId}=require("mongodb")
+const { error } = require("console")
 const client=new MongoClient("mongodb://127.0.0.1:27017/")
 
-const app=http.createServer((req,res)=>{
+const app=http.createServer(async (req,res)=>{
     const db=client.db("projects");
     const collection=db.collection("donors");
 
@@ -61,13 +62,42 @@ const app=http.createServer((req,res)=>{
             })
             
         })
+        res.writeHead(200,{"Content-Type":"text/html"});
+        res.end(fs.readFileSync("../Frontent/index.html"))
     }
+    if(pathname=="/getdonors"&&req.method=="GET"){
+        const data=await collection.find().toArray();
+        console.log(data);
+        const jsonData=JSON.stringify(data);
+        res.writeHead(200,{"Content-Type":"text/json"});
+        res.end(jsonData)
+    }
+    if(pathname=="/delete"&&req.method=="DELETE"){
+        let body="";
+        req.on("data",(chunks)=>{
+            body+=chunks.toString();
+            console.log(body);
+        })
+        req.on("end",async()=>{
+            let _id=new ObjectId(body);
+            console.log(_id);
+            await collection.deleteOne({_id}).then(()=>{
+                res.writeHead(200,{"Content-Type":"text/plain"});
+                res.end("Succesfully Deleted..")
+            }).catch((error)=>{
+                res.writeHead(400,{"Content-Type":"text/plain"});
+                res.end("failed!")
+            })
+            
+        })
+    }
+
 })
 client.connect().then((msg)=>{
-    console.log("database connected");
+    console.log("database connected!");
 
     app.listen(PORT,()=>{
-        console.log("server created");
+        console.log("server created....");
         
     })
     
