@@ -51,7 +51,6 @@ async function handleDelete(id) {
     else{
         alert("Failed..")
     }
-        
 }
 
 
