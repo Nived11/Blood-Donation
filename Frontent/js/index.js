@@ -13,7 +13,7 @@ async function logDonorData() {
                         <input type="text" placeholder="gender" name="gender" id="gender-${donor._id}" value="${donor.gender}" disabled="true">
                         <input type="text" placeholder="B'Group" name="group" id="group-${donor._id}" value="${donor.group}" disabled="true">
                         <input type="text" placeholder="phonenumber" name="phone" id="phone-${donor._id}" value="${donor.phone}" disabled="true">
-                        <button class="save">save</button>
+                        <button class="save" onclick="saveDetails('${donor._id}')">save</button>
                         <button class="edit" onclick="handleEdit('${donor._id}')">edit</button>
                         <button class="delete" onclick="handleDelete('${donor._id}')">delete</button>
                         </li>
@@ -52,4 +52,26 @@ async function handleDelete(id) {
         alert("Failed..")
     }
         
+}
+
+
+async function saveDetails(_id) {
+    const name=document.getElementById(`name-${_id}`).value;
+    const address=document.getElementById(`address-${_id}`).value;
+    const gender=document.getElementById(`gender-${_id}`).value;
+    const group=document.getElementById(`group-${_id}`).value;
+    const phone=document.getElementById(`phone-${_id}`).value;
+    let data={_id,name,gender,group,address,phone};
+    const res=await fetch('http://localhost:3001/update',{
+        method:"PUT",
+        headers:{"Content-Type":"text/json"},
+        body:JSON.stringify(data)
+    })
+    if(res.status==201){
+        alert("successfully updated ")
+        logDonorData()
+    }
+    else{
+        alert("failed..")
+    }
 }

@@ -91,6 +91,27 @@ const app=http.createServer(async (req,res)=>{
             
         })
     }
+    if(pathname=="/update"&&req.method=="PUT"){
+        console.log("hii");
+
+        let body=""
+        req.on("data",(chunks)=>{
+            body+=chunks.toString();
+        })
+        req.on("end",async()=>{
+            let data=JSON.parse(body)
+            let _id=new ObjectId(data._id)
+            let updateData={name:data.name,gender:data.gender,
+                group:data.group,address:data.address,phone:data.phone}
+            await collection.updateOne({_id},{$set:updateData}).then((msg)=>{
+                res.writeHead(201,{"Content-Type":"text/json"});
+                res.end("successfully updated..")
+            }).catch(()=>{
+                res.writeHead(400,{"Content-Type":"text/json"});
+                res.end("failed!")
+            })
+        })
+    }
 
 })
 client.connect().then((msg)=>{
