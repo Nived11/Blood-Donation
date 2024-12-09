@@ -112,7 +112,6 @@ const app=http.createServer(async (req,res)=>{
             })
         })
     }
-
 })
 client.connect().then((msg)=>{
     console.log("database connected!");

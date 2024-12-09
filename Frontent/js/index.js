@@ -68,7 +68,7 @@ async function saveDetails(_id) {
         body:JSON.stringify(data)
     })
     if(res.status==201){
-        alert("successfully updated ")
+        alert("successfully updated...")
         logDonorData()
     }
     else{
